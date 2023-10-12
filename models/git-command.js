@@ -11,20 +11,34 @@ class GitCommand {
 
     //Command: git status
     // Paste the codes you already did from the "Git Out Bug!" assignment
-    // status(){}
+    status() {
+        const changes = Object.keys(this.working_directory.new_changes);
+        changes[1]
+        if (changes.length === 0) {
+            return 'You have 0 change/s.\n';
+        } else {
+            let mainchanges = changes[1];
+            return `You have ${changes.length} change/s.\n${mainchanges}`;
+        }
+    }
 
     //Command: git add <filename/file directory/wildcard> 
-    add(path_file){
+    add(path_file) {
         let modified_files = this.working_directory.new_changes;
-        
-        if(modified_files[path_file]){
+
+        if (path_file === ".") {
+            for (const file in modified_files) {
+                this.staging.push(modified_files[file]);
+            }
+            this.working_directory.new_changes = {}; 
+        } else if (path_file === "*") {
+            for (const file in modified_files) {
+                this.staging.push(modified_files[file]);
+            }
+        } else if (modified_files[path_file]) {
             this.staging.push(modified_files[path_file]);
             delete modified_files[path_file];
-        }
-        /*
-            Create logic here then run unit testing. Make sure that they all pass before sending PR.
-        */
-        else{
+        } else {
             return `Failed to add ${path_file}! File is not modified or missing.`;
         }
         return "Successfully added as index file/s.";
