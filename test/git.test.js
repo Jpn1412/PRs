@@ -61,6 +61,6 @@ describe("Testing add()", function(){
         let output_status = git.status();
 
         expect(output_add).to.equal('Successfully added as index file/s.');
-        expect(output_status).to.equal('You have 1 change/s.\n.github/workflows/actions.yml');
+        expect(output_status).to.equal('You have 2 change/s.\n.github/workflows/actions.yml');
     });
 })
